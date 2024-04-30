@@ -5,7 +5,6 @@ def solution(skill, skill_trees):
         st = list(skill)
         for s in sk:
             if s in st:
-                # print(s, st)
                 if s != st[0]:
                     tf = 0
                     break
