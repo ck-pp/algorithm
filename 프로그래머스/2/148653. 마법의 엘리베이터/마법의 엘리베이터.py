@@ -1,17 +1,16 @@
 def solution(storey):
     ans = 0
-    ten = 10
     while storey > 0:
-        if storey % ten > 5:
-            ans += (ten - (storey%ten))
-            storey = storey // ten + 1
-        elif storey % ten == 5:
+        if storey % 10 > 5:
+            ans += (10 - (storey % 10))
+            storey = storey // 10 + 1
+        elif storey % 10 == 5:
             ans += 5
-            if (storey // ten) % ten >= 5:
-                storey = (storey + 5) // ten
+            if (storey // 10) % 10 >= 5:
+                storey = (storey + 5) // 10
             else:
-                storey //= ten
+                storey //= 10
         else:
-            ans += (storey % ten)
-            storey //= ten
+            ans += (storey % 10)
+            storey //= 10
     return ans
