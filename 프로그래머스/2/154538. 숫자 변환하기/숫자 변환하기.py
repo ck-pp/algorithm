@@ -4,19 +4,23 @@ def solution(x, y, n):
     if x == y:
         return 0
     
-    queue = deque([(x, 0)])
-    visited = set([x])
+    queue = deque([(y, 0)])
+    visited = set([y])
     
     while queue:
         cur_num, steps = queue.popleft()
         
-        if cur_num == y:
+        if cur_num == x:
             return steps
         
-        
-        
-        for next_num in (cur_num + n, cur_num * 2, cur_num * 3):
-            if next_num <= y and next_num not in visited:
+        c_nums = [cur_num - n]
+        if cur_num % 2 == 0:
+            c_nums.append(cur_num // 2)
+        if cur_num % 3 == 0:
+            c_nums.append(cur_num // 3)
+            
+        for next_num in c_nums:
+            if next_num >= x and next_num not in visited:
                 visited.add(next_num)
                 queue.append([next_num, steps + 1])
                 
