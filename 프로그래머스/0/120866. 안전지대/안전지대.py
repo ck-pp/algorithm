@@ -12,7 +12,7 @@ def solution(board):
                 dp[i][j] = 1
                 for dx, dy in directions:
                     next_x, next_y = i+dx, j+dy
-                    if (-1 < next_x < n and -1 < next_y < n) and dp[next_x][next_y] == 0:
+                    if (-1 < next_x < n and -1 < next_y < n) and not dp[next_x][next_y]:
                         dp[next_x][next_y] = 1
     for r in range(n):
         sum += Counter(dp[r])[0]
