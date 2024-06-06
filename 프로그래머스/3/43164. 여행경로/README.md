@@ -1,6 +1,6 @@
 # [level 3] 여행경로 - 43164 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43164?language=python3) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43164) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 06월 07일 03:34:25
+2024년 06월 07일 03:35:51
 
 ### 문제 설명
 
