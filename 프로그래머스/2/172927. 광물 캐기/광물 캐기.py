@@ -24,17 +24,12 @@ def solution(picks, minerals):
         
     # 피로도가 높은 순서대로 정렬
     case_n.sort(key=lambda x: (x[2], x[1], x[0]), reverse=True)
-    
-    used_picks = 0
-    
+        
     for pick_case in case_n:
-        if used_picks > sum_p:
-            break
         for i in range(3):
             if picks[i] > 0:
                 ans += pick_case[i]
                 picks[i] -= 1
-                used_picks += 1
                 break
     
     return ans
