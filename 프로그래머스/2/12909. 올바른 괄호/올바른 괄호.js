@@ -1,17 +1,10 @@
 function solution(s){
-    var stack = [];
-    for (ch of s) {
-        if (ch == '(')
-            stack.push(ch)
-        else {
-            if (stack[stack.length -1] == '(')
-                stack.pop()
-            else
-                return false;
+    let cum = 0
+    for (let paren of s) {
+        cum += paren === '('? 1: -1
+        if(cum < 0) {
+            return false
         }
     }
-    if (stack.length > 0)
-        return false;
-    else
-        return true;
+    return cum === 0? true: false;
 }
