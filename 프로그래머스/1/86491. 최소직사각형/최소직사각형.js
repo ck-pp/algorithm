@@ -1,13 +1,10 @@
 function solution(sizes) {
-    var ans = 0;
-    var ws = [];
-    var hs = [];
-    for (let i = 0; i < sizes.length; i++) {
-        sizes[i] = sizes[i].sort((a, b) => {return a-b});
-        ws.push(sizes[i][0]);
-        hs.push(sizes[i][1]);
-    }
-    ws.sort((a, b) => {return b-a});
-    hs.sort((a, b) => {return b-a});
-    return ws[0] * hs[0];
+    const rotated = sizes.map(([w, h]) => w < h ? [h, w] : [w, h]);
+
+    let maxSize = [0, 0];
+    rotated.forEach(([w, h]) => {
+        if (w > maxSize[0]) maxSize[0] = w;
+        if (h > maxSize[1]) maxSize[1] = h;
+    })
+    return maxSize[0]*maxSize[1];
 }
