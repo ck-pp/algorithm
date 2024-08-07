@@ -1,13 +1,11 @@
 def solution(board, h, w):
     cnt = 0
     n = len(board)
-    dw = [1, 0, 0, -1]
-    dh = [0, 1, -1, 0]
-    for i in range(4):
-        h_check = h + dh[i]
-        w_check = w + dw[i]
-        if (0 <= h_check < n and 0 <= w_check < n):
-            if (board[h][w] == board[h_check][w_check]):
+    move = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    for d in move:
+        dh, dw = (h + d[0]), (w + d[1])
+        if (0 <= dh < n and 0 <= dw < n):
+            if (board[h][w] == board[dh][dw]):
                 cnt += 1
 
     return cnt
