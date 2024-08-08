@@ -1,27 +1,27 @@
 from collections import deque
 
 def solution(x, y, n):
-    if x == y:
-        return 0
     
-    queue = deque([(y, 0)])
+    queue = deque([[0, y]])
     visited = set([y])
     
     while queue:
-        cur_num, steps = queue.popleft()
+        cnt, cur_sum = queue.popleft()
         
-        if cur_num == x:
-            return steps
+        if cur_sum == x:
+            return cnt
         
-        c_nums = [cur_num - n]
-        if cur_num % 2 == 0:
-            c_nums.append(cur_num // 2)
-        if cur_num % 3 == 0:
-            c_nums.append(cur_num // 3)
+        num_list = []
+        if cur_sum - n >= x:
+            num_list.append(cur_sum - n)
+        if cur_sum % 2 == 0:
+            num_list.append(cur_sum // 2)
+        if cur_sum % 3 == 0:
+            num_list.append(cur_sum // 3)
             
-        for next_num in c_nums:
-            if next_num >= x and next_num not in visited:
+        for next_num in num_list:
+            if next_num not in visited:
+                queue.append([cnt + 1, next_num])
                 visited.add(next_num)
-                queue.append([next_num, steps + 1])
-                
+    
     return -1
