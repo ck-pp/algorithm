@@ -1,7 +1,17 @@
+from collections import deque
+
 def solution(numbers, target):
-    def dfs(idx, c_sum):
-        if idx == len(numbers):
-            return 1 if c_sum == target else 0
-        return dfs(idx + 1, c_sum + numbers[idx]) + dfs(idx + 1, c_sum - numbers[idx])
+    queue = deque([(0, 0)]) # 현재 인덱스, 합
+    cnt = 0
     
-    return dfs(0, 0)
+    while queue:
+        idx, cur_sum = queue.popleft()
+        
+        if idx == len(numbers):
+            if cur_sum == target:
+                cnt += 1
+        else:
+            queue.append((idx + 1, cur_sum - numbers[idx]))
+            queue.append((idx + 1, cur_sum + numbers[idx]))
+            
+    return cnt
