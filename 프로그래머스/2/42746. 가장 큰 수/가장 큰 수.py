@@ -1,16 +1,17 @@
-from functools import cmp_to_key
-
-def compare(x, y):
-    if x + y > y + x:
-        return -1
-    elif x + y < y + x:
-        return 1
-    else:
-        return 0
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x + pivot > pivot + x]
+    equal = [x for x in arr if x + pivot == pivot + x]
+    right = [x for x in arr if x + pivot < pivot + x]
+    
+    return quick_sort(left) + equal + quick_sort(right)
 
 def solution(numbers):
     numbers = list(map(str, numbers))
-    sorted_numbers = sorted(numbers, key=cmp_to_key(compare))
+    sorted_numbers = quick_sort(numbers)
     ans = ''.join(sorted_numbers)
     
     return str(int(ans))
