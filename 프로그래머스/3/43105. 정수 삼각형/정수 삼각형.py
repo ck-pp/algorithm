@@ -1,12 +1,13 @@
 def solution(triangle):
-    ans = 0
-    dp = [[triangle[0][0]] * n for n in range(1, len(triangle)+1)]
-    for h in range(1, len(triangle)):
-        for num in range(h+1):
-            if num == 0:
-                dp[h][num] = dp[h-1][num] + triangle[h][num]
-            elif num == h:
-                dp[h][num] = dp[h-1][num-1] + triangle[h][num]
+    dp = [[0] * len(row) for row in triangle]
+    
+    for h in range(len(triangle)):
+        for n in range(h + 1):
+            if n == 0: # 왼쪽 끝
+                dp[h][n] = dp[h-1][n] + triangle[h][n]
+            elif n == h: # 오른쪽 끝
+                dp[h][n] = dp[h-1][n-1] + triangle[h][n]
             else:
-                dp[h][num] = max(dp[h-1][num-1], dp[h-1][num]) + triangle[h][num]
+                dp[h][n] = max(dp[h-1][n-1], dp[h-1][n]) + triangle[h][n]
+
     return max(dp[-1])
