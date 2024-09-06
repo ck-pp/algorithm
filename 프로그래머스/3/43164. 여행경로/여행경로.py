@@ -1,23 +1,18 @@
-from collections import defaultdict
-
-def dfs(graph, node, route):
-        while graph[node]:
-            next_node = graph[node].pop()
-            dfs(graph, next_node, route)
-        route.append(node)
+def dfs(g, node, route):
+    while node in g and g[node]:  # 그래프에 node가 있는지 확인해야 함. 안하면 KeyError 발생.
+        next_node = g[node].pop()
+        dfs(g, next_node, route)
+    
+    route.append(node)
 
 def solution(tickets):
-    route = []
-    # 그래프 생성
-    graph = defaultdict(list)
+    route = []  # 스택
+    tickets.sort(key=lambda x: x[1], reverse=True)  # 알파벳 순서 앞서는 경로 우선하기 위해
+    g = {start: [] for start, _ in tickets}
     
     for start, end in tickets:
-        graph[start].append(end)
+        g[start].append(end)
     
-    # 도착지 사전순 정렬 _ 제한사항 조건 충족 위해
-    for key in graph:
-        graph[key].sort(reverse=True) # pop -> 역순 정렬
+    dfs(g, "ICN", route)
     
-    dfs(graph, "ICN", route)    
-    
-    return route[::-1] # 재귀 > 방문 경로 역순으로 저장 > 뒤집어서 반환
+    return route[::-1]  # 역으로 출력 (재귀 호출이므로)
