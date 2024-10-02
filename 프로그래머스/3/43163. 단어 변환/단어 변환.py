@@ -1,26 +1,26 @@
+# 최단경로 -> BFS(큐)
 from collections import deque
 
-def is_one_diff(word1, word2):
-    diff_cnt = len([1 for a, b in zip(word1, word2) if a != b])
+def is_one_diff(w1, w2):
+    diff_cnt = sum([1 for a, b in zip(w1, w2) if a != b])
     return diff_cnt == 1
 
 def solution(begin, target, words):
-    # 가장 짧은 변환 과정 > 최단 거리 > BFS
-    if target not in words:
-        return 0
-    
     words.append(begin)
-    queue = deque([(begin, 0)])
+    q = deque([begin])
     visited = set([begin])
+    dist = {begin: 0}
     
-    while queue:
-        cur_word, steps = queue.popleft()
+    while q:
+        cur_word = q.popleft()
         
         if cur_word == target:
-            return steps
+            return dist[cur_word]
         
-        for word in words:
-            if word not in visited and is_one_diff(cur_word, word):
-                visited.add(word)
-                queue.append([word, steps + 1])
+        for next_word in words:
+            if next_word not in visited and is_one_diff(cur_word, next_word):
+                q.append(next_word)
+                visited.add(next_word)
+                dist[next_word] = dist[cur_word] + 1
+    
     return 0
