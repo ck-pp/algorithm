@@ -1,21 +1,26 @@
 from collections import deque
 
 def solution(maps):
-    queue = deque([(1, (1, 1))]) # 이동 칸 수, 현재 좌표
-    visited = set([(1, 1)]) # 좌표
-    d_pos = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+    q = deque([(1, (1, 1))])  # 이동 횟수, 좌표
+    visited = set((1, 1))
+    move = [(1, 0), (-1, 0), (0, -1), (0, 1)]
     n, m = len(maps), len(maps[0])
     
-    while queue:
-        steps, cur_pos = queue.popleft()
+    while q:
+        steps, cur_pos = q.popleft()
         
         if cur_pos == (n, m):
             return steps
         
-        for dx, dy in d_pos:
-            next_x, next_y = dx + cur_pos[0], dy + cur_pos[1]
-            if (1 <= next_x <= n) and (1 <= next_y <= m) and (next_x, next_y) not in visited and maps[next_x-1][next_y-1] == 1:        
-                queue.append((steps + 1, (next_x, next_y)))
-                visited.add((next_x, next_y))
-        
+        move_pos = []
+        for dy, dx in move:
+            y, x = cur_pos[0] + dy, cur_pos[1] + dx
+            if 0 < y <= n and 0 < x <= m and maps[y-1][x-1] > 0:
+                move_pos.append((y, x))
+            
+        for next_pos in move_pos:
+            if next_pos not in visited:
+                q.append((steps + 1, next_pos))
+                visited.add(next_pos)
+    
     return -1
