@@ -1,11 +1,9 @@
 def solution(wallet, bill):
     ans = 0
-    min_b, max_b = min(bill), max(bill)
-    min_w, max_w = min(wallet), max(wallet)
-    while min_b > min_w or max_b > max_w:
-        max_b //= 2
-        if max_b < min_b:
-            max_b, min_b = min_b, max_b
+    wallet, bill = sorted(wallet), sorted(bill)
+    while bill[0] > wallet[0] or bill[1] > wallet[1]:
+        bill[1] //= 2
+        bill.sort()
         ans += 1
         
     return ans
