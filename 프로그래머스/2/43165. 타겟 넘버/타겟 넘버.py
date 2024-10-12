@@ -1,17 +1,17 @@
 from collections import deque
 
 def solution(numbers, target):
-    queue = deque([(0, 0)]) # 현재 인덱스, 합
+    q = deque([(0, 0)])
     cnt = 0
     
-    while queue:
-        idx, cur_sum = queue.popleft()
+    while q:
+        idx, cur_num = q.popleft()
         
         if idx == len(numbers):
-            if cur_sum == target:
+            if cur_num == target:
                 cnt += 1
         else:
-            queue.append((idx + 1, cur_sum - numbers[idx]))
-            queue.append((idx + 1, cur_sum + numbers[idx]))
-            
+            q.append((idx + 1, cur_num + numbers[idx]))
+            q.append((idx + 1, cur_num - numbers[idx]))
+        
     return cnt
