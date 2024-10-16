@@ -1,13 +1,15 @@
-def solution(triangle):
-    dp = [[0] * len(row) for row in triangle]
-    
-    for h in range(len(triangle)):
-        for n in range(h + 1):
-            if n == 0: # 왼쪽 끝
-                dp[h][n] = dp[h-1][n] + triangle[h][n]
-            elif n == h: # 오른쪽 끝
-                dp[h][n] = dp[h-1][n-1] + triangle[h][n]
-            else:
-                dp[h][n] = max(dp[h-1][n-1], dp[h-1][n]) + triangle[h][n]
+import copy as c
 
+def solution(triangle):
+    dp = c.deepcopy(triangle)
+    # 왼쪽 대각선 아래: [row+1][col], 오른쪽 대각선 아래: [row+1][col+1]
+    for row in range(1, len(dp)):
+        for col in range(len(dp[row])):
+            if col == 0:  # 맨 왼쪽
+                dp[row][col] += dp[row-1][col]
+            elif col == len(dp[row]) - 1:  # 맨 오른쪽
+                dp[row][col] += dp[row-1][col-1]
+            else:  # 그 사이
+                dp[row][col] += max(dp[row-1][col-1], dp[row-1][col])
+    
     return max(dp[-1])
