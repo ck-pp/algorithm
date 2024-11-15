@@ -1,5 +1,6 @@
 import sys
-import heapq
+from collections import deque
+# BFS로 풀이해보기 -> 가중치가 다 같기 때문에 이게 더 효율적
 
 input = sys.stdin.readline
 
@@ -8,30 +9,24 @@ A_B_lists = [list(map(int, input().split())) for _ in range(M)]
 
 g = [[] for _ in range(N + 1)]
 for A, B in A_B_lists:
-    g[A].append((B, 1))  # A-B 모든 거리 1
+    g[A].append(B)
     
-q = [(0, X)]  # (거리, 시작 도시)
-distance = [float('inf')] * (N + 1)  # X로부터 거리
+q = deque([X])  # (거리, 시작 도시)
+distance = [-1] * (N + 1)  # -1: 방문하지 않은 노드
 distance[X] = 0
 
 while q:
-    cur_dist, cur_city = heapq.heappop(q)
+    cur_city = q.popleft()
     
-    # 더 짧은 경로가 이미 있는 경우
-    if cur_dist > distance[cur_city]:
-        continue
-    
-    for neighbor, weight in g[cur_city]:
-        dist_via_cur = distance[cur_city] + weight
-        if dist_via_cur < distance[neighbor]:  # 더 짧은 경로 발견한 경우, 업데이트
-            heapq.heappush(q, (dist_via_cur, neighbor))
-            distance[neighbor] = dist_via_cur
+    for neighbor in g[cur_city]:
+        if distance[neighbor] == -1:  # 방문하지 않은 노드만 탐색
+            q.append(neighbor)
+            distance[neighbor] = distance[cur_city] + 1
 
-isEmpty = True
-for idx in range(len(distance)):
-    if distance[idx] == K:
-        isEmpty = False
-        print(idx)
+# X로부터 최단 거리가 K인 도시 번호만 추가
+result = [idx for idx, dist in enumerate(distance) if dist == K]
 
-if isEmpty:  # 최단 거리가 K인 도시가 하나도 없는 경우
+if result:
+    print(*result)  # 리스트 그대로 출력
+else:
     print(-1)
