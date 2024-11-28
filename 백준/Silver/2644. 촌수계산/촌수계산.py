@@ -23,7 +23,7 @@ def bfs(start, end):
             return steps
     
         for family_num in g[cur_num]:
-            if family_num <= end and family_num not in visited:  # 다음 넘버가 end 이하인지 체크하는 조건 중요!
+            if family_num not in visited:
                 q.append((steps + 1, family_num))
                 visited.add(family_num)
     
