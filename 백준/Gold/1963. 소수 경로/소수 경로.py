@@ -13,22 +13,26 @@ def get_primes():
     return primes
     
 def generate_next_nums(cur_num, primes):
-    cur_num = str(cur_num)
+    cur_num = list(cur_num)
     next_nums = []
     
     for i in range(4):
+        origin_digit = cur_num[i]
         for digit in "0123456789":
             if i == 0 and digit == '0':  # 첫번째 자리는 1-9 가능
                 continue
-            if cur_num[i] == digit:  # 변환 안했을때
+            if digit == origin_digit:  # 변환 안했을때
                 continue
             
-            new_num = int(cur_num[:i] + digit + cur_num[i+1:])
+            cur_num[i] = digit  # 자리수 변환
+            new_num = int(''.join(cur_num))
             
             # 네 자리 소수인 숫자만 후보에 추가
             if primes[new_num]:
                 next_nums.append(str(new_num))
                 
+        cur_num[i] = origin_digit
+        
     return next_nums
 
 T = int(input())
