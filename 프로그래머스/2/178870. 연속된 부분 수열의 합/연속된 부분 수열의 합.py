@@ -20,9 +20,7 @@ def solution(sequence, k):
             if sum_v == k:
                 start, end = i - len(q) + 1, i  # 시작 인덱스, 마지막 인덱스
                 ans.append((end - start + 1, [start, end]))
-                
-                while q and sum_v > k:
-                    sum_v -= q.popleft()
+                sum_v -= q.popleft()  # 앞쪽 원소 하나 제거하고 다시 원소 합 카운트
     
     # 1.부분 수열 길이 기준 2.시작 인덱스 기준 오름차순 정렬 
     ans.sort(key=lambda x:(x[0], x[1][0]))
