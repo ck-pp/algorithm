@@ -1,8 +1,10 @@
 def solution(phone_book):
-    # 한 번호가 다른 번호의 접두어인 경우 있는지 확인
     phone_book.sort()
     for i in range(len(phone_book) - 1):
-        if phone_book[i] == phone_book[i+1][:len(phone_book[i])]:
+        cur_n = len(phone_book[i])
+        next_n = len(phone_book[i+1])
+        # 정렬을 했기 때문에 바로 다음 문자열과만 비교
+        if cur_n <= next_n and phone_book[i] == phone_book[i+1][:cur_n]:
             return False
     
     return True
