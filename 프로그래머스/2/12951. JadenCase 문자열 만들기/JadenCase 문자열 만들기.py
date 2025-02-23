@@ -1,14 +1,13 @@
 def solution(s):
-    s_list = s.split(' ')
+    # 모두 소문자로 바꾼 뒤, 맨 앞글자만 대문자로 변환
+    s = s.lower().title()
+    n = len(s)
+    ans = ''
+    for i in range(n):
+        # 현재 맨 앞이 숫자일 경우 그 뒤 문자가 대문자로 변환되어 있기 때문에 이 경우에 다시 소문자로 변환한다.
+        if s[i-1].isnumeric() and s[i].isalpha():
+            ans += s[i].lower()
+        else:
+            ans += s[i]
     
-    for i in range(len(s_list)):
-        up_st = low_st = ''
-        if s_list[i] != '':
-            up_st = s_list[i][0]
-            if 'a' <= up_st <= 'z':
-                up_st = s_list[i][0].upper()
-            if len(s_list[i]) > 1:
-                low_st = s_list[i][1:].lower()
-        s_list[i] = up_st + low_st
-        
-    return ' '.join(s_list)
+    return ans
