@@ -1,6 +1,7 @@
 def solution(s):
-    list = s.split(' ')
-    ans = []
-    for i in list:
-        ans.append(int(i))
-    return str(min(ans)) + ' ' + str(max(ans))
+    # 공백 기준으로 숫자 저장
+    nums = list(map(int, s.split()))
+    min_num = str(min(nums))  # 최소값
+    max_num = str(max(nums))  # 최대값
+    
+    return min_num + ' ' + max_num
