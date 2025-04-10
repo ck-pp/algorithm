@@ -1,26 +1,34 @@
 from collections import deque
 
+# 칸의 개수 최솟값 & 가중치 없음 -> bfs
 def solution(maps):
-    q = deque([(1, (1, 1))])  # 이동 횟수, 좌표
-    visited = set((1, 1))
-    move = [(1, 0), (-1, 0), (0, -1), (0, 1)]
-    n, m = len(maps), len(maps[0])
+    n = len(maps[0])  # 행 길이
+    m = len(maps)  # 열 길이
     
+    q = deque([((0, 0), 1)])  # (현재 위치 좌표, 지나온 칸의 개수)
+    visited = set([(0, 0)])
+    
+    dpositions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # 동, 서, 남, 북 이동 가능
+    
+    # bfs 로직 실행
     while q:
-        steps, cur_pos = q.popleft()
+        cur_pos, steps = q.popleft()
         
-        if cur_pos == (n, m):
+        # 상대 팀 진영에 도착한 경우
+        if cur_pos == (n-1, m-1):
             return steps
         
-        move_pos = []
-        for dy, dx in move:
-            y, x = cur_pos[0] + dy, cur_pos[1] + dx
-            if 0 < y <= n and 0 < x <= m and maps[y-1][x-1] > 0:
-                move_pos.append((y, x))
+        for x, y in dpositions:
+            n_x, n_y = cur_pos[0] + x, cur_pos[1] + y
             
-        for next_pos in move_pos:
-            if next_pos not in visited:
-                q.append((steps + 1, next_pos))
-                visited.add(next_pos)
-    
+            # 문제에서 주어진 조건
+            # 1) 게임 맵 벗어난 길 갈 수 없음 2) 벽이 아닌 길
+            if 0 <= n_x < n and 0 <= n_y < m and maps[n_y][n_x] == 1:
+                if (n_x, n_y) not in visited:
+                    q.append(((n_x, n_y), steps + 1))
+                    visited.add((n_x, n_y))
+                    
     return -1
+        
+        
+        
