@@ -1,28 +1,33 @@
 # 인접한 두 집 털면 경보 울림
 
 def solution(money):
+    # 돈의 최댓값 & 전 집 선택o/x 중 max값 저장
     n = len(money)
-    dp = [0 for _ in range(len(money))]
+    # dp 정의
+    dp = [0 for _ in range(n)]
     
-    # 첫 번째 집을 털었을 경우
+    # 첫번째 집 선택했을 경우
     dp[0] = money[0]
     dp[1] = money[1]
-    dp[2] = money[2] + money[0]
+    dp[2] = money[0] + money[2]
     
-    for i in range(3, n):
-        # i-2, i-3 번쨰 값 중 큰 값 + 자신
-        dp[i] = max(dp[i - 2], dp[i - 3]) + money[i]
+    for i in range(3, n-1):
+        # 바로 이전값은 선택 못함
+        dp[i] = max(dp[i-2], dp[i-3]) + money[i]
     
-    max1 = max(dp[:-1])  # 마지막 집 털지 못함(인접한 관계이므로)
+    # 첫번째 집 선택했을때 최댓값 저장
+    max1 = max(dp)
     
-    # 첫 번째 집을 털지 않았을 경우
-    dp[0] = 0  # 첫 번째 집 money가 최댓값일 경우도 있기 때문에? 아예 값을 배제.
+    # 첫번째 집 선택 안했을 경우
+    # 첫번째 집이 최댓값일 수 있으므로(= dp[0]이 max) 0으로 저장
+    dp[0] = 0
     dp[1] = money[1]
     dp[2] = money[2]
     
-    for i in range(3, n):
-        dp[i] = max(dp[i - 2], dp[i - 3]) + money[i]
+    for j in range(3, n):
+        dp[j] = max(dp[j-2], dp[j-3]) + money[j]
     
-    max2 = max(dp)  # 마지막 집 털 수 있음
-
+    # 첫번째 집 선택 안했을때 최댓값 저장
+    max2 = max(dp)
+    
     return max(max1, max2)
