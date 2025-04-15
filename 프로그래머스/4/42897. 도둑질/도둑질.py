@@ -11,8 +11,9 @@ def solution(money):
     dp[1] = money[1]
     dp[2] = money[0] + money[2]
     
+    # 마지막 집이 첫번째 집과 인접하므로 선택X
     for i in range(3, n-1):
-        # 바로 이전값은 선택 못함
+        # 바로 이전값은 선택X
         dp[i] = max(dp[i-2], dp[i-3]) + money[i]
     
     # 첫번째 집 선택했을때 최댓값 저장
