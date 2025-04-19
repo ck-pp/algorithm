@@ -8,7 +8,7 @@ def solution(scoville, K):
     steps = 0  # 섞어야 하는 최소 횟수
     
     while scoville[0] < K:
-        # 모든 음시긔 스코빌 지수를 K 이상으로 만들 수 없는 경우
+        # 모든 음식의 스코빌 지수를 K 이상으로 만들 수 없는 경우
         if len(scoville) < 2:
             return -1
         
