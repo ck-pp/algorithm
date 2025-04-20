@@ -1,17 +1,15 @@
-from collections import deque
-
 def solution(numbers, target):
-    q = deque([(0, 0)])
-    cnt = 0
+    n = len(numbers)
     
-    while q:
-        idx, cur_num = q.popleft()
+    # 1. dfs 정의
+    def dfs(idx, sum_val):
+        # 모든 정수를 연산에 사용한 경우
+        if idx == n:
+            # 타겟 넘버가 만들어지면 방법의 수 + 1
+            return 1 if sum_val == target else 0
         
-        if idx == len(numbers):
-            if cur_num == target:
-                cnt += 1
-        else:
-            q.append((idx + 1, cur_num + numbers[idx]))
-            q.append((idx + 1, cur_num - numbers[idx]))
-        
-    return cnt
+        # 다음 숫자를 더하고 빼서 재귀 호출
+        return dfs(idx+1, sum_val + numbers[idx]) + dfs(idx+1, sum_val - numbers[idx])
+    
+    # 2. dfs 호출
+    return dfs(0, 0)
