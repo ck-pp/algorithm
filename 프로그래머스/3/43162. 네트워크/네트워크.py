@@ -1,24 +1,37 @@
 from collections import deque
 
+# bfs 정의
+def bfs(g, q, visited):
+    while q:
+        cur_computer = q.popleft()
+        
+        for next_computer in g[cur_computer]:
+            if next_computer not in visited:
+                q.append(next_computer)
+                visited.add(next_computer)
+    
+    return 1
+
 def solution(n, computers):
-    visited = [False] * n
-    net_cnt = 0
+    # 네트워크 개수 > 모두 탐색할 필요x > bfs
+    networks = 0
     
-    def bfs(start):
-        q = deque([start])
-        visited[start] = True
-    
-        while q:
-            cur_node = q.popleft()
-            for i in range(n):
-                # 연결된 컴퓨터 중 방문하지 않은 컴퓨터 큐에 추가
-                if computers[cur_node][i] == 1 and not visited[i]:
-                    visited[i] = True
-                    q.append(i)
-    
+    # A-B, B-C == A-B-C
+    g = [[] for _ in range(n+1)]
     for i in range(n):
-        if not visited[i]:
-            bfs(i)
-            net_cnt += 1
+        for j in range(n):
+            if i != j and computers[i][j] == 1:
+                g[i+1].append(j+1)  # 인덱스는 0부터~이므로 컴퓨터 번호 1부터~로 맞춰줌
+                    
+    q = deque([])
+    visited = set([])
     
-    return net_cnt
+    for i in range(1, n+1):
+        # 방문하지 않은 컴퓨터일 경우
+        if i not in visited:
+            q.append(i)
+            visited.add(i)
+            # bfs 실행 == 네트워크 개수 더하기
+            networks += bfs(g, q, visited)
+    
+    return networks
