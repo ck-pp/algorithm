@@ -1,5 +1,9 @@
 def solution(s):
-    if len(s) % 2 == 0:
-        return s[len(s)//2-1:len(s)//2+1]
+    n = len(s)
+    
+    # 문자열 길이가 짝수일 경우
+    if n % 2 == 0:
+        return s[n // 2 - 1] + s[n // 2]
+    # 문자열 길이가 홀수일 경우
     else:
-        return s[len(s)//2]
+        return s[n // 2]
