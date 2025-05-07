@@ -1,6 +1,5 @@
 def solution(n):
-    ans = ''
-    dict = {0:'박', 1:'수'}
-    for i in range(n):
-        ans += dict[(i+1)%2]
-    return ans
+    # 문자열 길이가 최대 10,000이므로
+    string = "수박" * 5000
+    
+    return string[:n]
