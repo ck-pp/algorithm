@@ -1,15 +1,22 @@
 def solution(s):
-    stack = []
-    n = len(s)
+    st = []
     
-    for i in range(n):
-        if s[i] == '(':  # 열린 괄호인 경우
-            stack.append(s[i])
-        else:  # 닫힌 괄호인 경우
-            if not stack or stack[-1] != '(':  # 올바르지 않은 괄호
-                return False
+    for parentheses in s:
+        # 열린 괄호일 경우
+        if parentheses == '(':
+            st.append('(')
+        
+        # 닫힌 괄호일 경우
+        else:
+            # 괄호가 짝지어져 있는 경우
+            if st and st[-1] == '(':
+                st.pop()
+            # 괄호가 짝지어져 있는 경우 == 올바르지 않은 괄호
             else:
-                stack.pop()
+                return False
     
-    if stack: return False  # 열린 괄호만 남음(= 올바르지 않은 괄호)
-    else: return True  # 올바른 괄호
+    # 반복문 끝났는데 아직 스택에 괄호가 남은 경우 == 올바르지 않은 괄호
+    if st:
+        return False
+    
+    return True
