@@ -1,3 +1,2 @@
 def solution(numbers):
-    sum_n = sum([n for n in range(10)])
-    return sum_n - sum(numbers)
+    return sum(set([i for i in range(10)]) - set(numbers))
