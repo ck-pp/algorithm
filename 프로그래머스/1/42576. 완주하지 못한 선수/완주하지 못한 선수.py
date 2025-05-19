@@ -1,7 +1,13 @@
+from collections import Counter
+
 def solution(participant, completion):
-    res = {name:0 for name in participant}
-    for name in participant:
-        res[name] += 1
-    for comp_name in completion:
-        res[comp_name] -= 1
-    return [name for name in res if res[name] > 0][0]
+    # 참여자 명단 - 이름: (동명이인) 수
+    participant_num = Counter(participant)
+    
+    for c in completion:
+        # 완주한 선수 빼기
+        participant_num[c] -= 1
+    
+    # 남은 사람 == 완주하지 못한 선수
+    return [name for name, num in participant_num.items() if num > 0][0]
+        
