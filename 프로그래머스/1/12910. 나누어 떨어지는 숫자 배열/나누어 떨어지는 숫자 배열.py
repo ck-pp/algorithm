@@ -1,6 +1,6 @@
 def solution(arr, divisor):
-    ans = []
-    for n in arr:
-        if n % divisor == 0:
-            ans.append(n)
-    return sorted(ans) or [-1]
+    ans = sorted([num for num in arr if num % divisor == 0])
+    if ans:
+        return ans
+    else:
+        return [-1]
