@@ -1,5 +1,2 @@
 def solution(n):
-    ans = 0
-    for x in range(2, n):
-        if (n-1) % x == 0:
-            return x
+    return [x for x in range(2, n) if n % x == 1][0]
