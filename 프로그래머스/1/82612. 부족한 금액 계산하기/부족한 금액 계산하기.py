@@ -1,6 +1,4 @@
 def solution(price, money, count):
-    need_m = sum([n for n in range(1, count+1)]) * price
-    if money - need_m < 0:
-        return need_m - money
-    else:
-        return 0
+    need = sum([price * i for i in range(1, count+1)])
+    
+    return need - money if need - money > 0 else 0
