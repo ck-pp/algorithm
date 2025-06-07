@@ -1,10 +1,7 @@
+import math
+
 def solution(n, m):
-    ans = []
-    mult = n * m
-    # GCD / LCM = n*m // GCD
-    while n != 0:
-        t = m % n
-        (m, n) = (n, t)
-    gcd = m
-    lcm = mult // gcd
-    return [gcd, lcm]
+    gcd_v = math.gcd(n, m)
+    lcm_v = n * m // gcd_v
+    
+    return [gcd_v, lcm_v]
