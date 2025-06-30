@@ -11,4 +11,3 @@ def solution(n, words):
         turns += 1
         
     return [0, 0]
-        
