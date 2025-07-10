@@ -1,8 +1,10 @@
 def solution(arr1, arr2):
-    rows = len(arr1)  # 행 길이
-    cols = len(arr1[0])  # 열 길이
-    for i in range(rows):
-        for j in range(cols):
-            arr2[i][j] += arr1[i][j]
+    c_l = len(arr1)  # 열 길이
+    r_l = len(arr1[0])  # 행 길이
+    ans = [[0] * r_l for _ in range(c_l)]
     
-    return arr2
+    for i in range(c_l):
+        for j in range(r_l):
+            ans[i][j] = arr1[i][j] + arr2[i][j]
+    
+    return ans
