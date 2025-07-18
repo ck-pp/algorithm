@@ -1,18 +1,18 @@
 def solution(s):
-    ans = []
+    ans = ''
     words = s.upper().split(' ')
     
-    for i in range(len(words)):
-        n = len(words[i])
-        word = ''
-        for j in range(n):
-            # 짝수번째 알파벳 = 인덱스가 홀수인 알파벳
-            if j % 2 == 1:
-                word += words[i][j].lower()
-            # 홀수번째 알파벳 = 인덱스가 짝수인 알파벳
+    for word in words:
+        n = len(word)
+
+        for i in range(n):
+            # 짝수번째 알파벳 == 인덱스가 홀수인 알파벳
+            if i % 2 == 1:
+                ans += word[i].lower()
+            # 홀수번째 알파벳 == 인덱스가 짝수인 알파벳
             else:
-                word += words[i][j]
+                ans += word[i]
         
-        ans.append(word)
+        ans += ' '
         
-    return ' '.join(ans)
+    return ans[:-1]
