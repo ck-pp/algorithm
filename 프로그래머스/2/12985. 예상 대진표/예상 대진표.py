@@ -2,12 +2,13 @@ import math
 
 def solution(n,a,b):
     rounds = 1
-    a_r, b_r = (a + 1) // 2, (b + 1) // 2  # A번과 B번의 게임 순서 번호
-    while n > 1:
-        if a_r == b_r:
+    a_round, b_round = (a + 1) // 2, (b + 1) // 2
+    
+    while n > 1:  # 게임 끝
+        if a_round == b_round:
             return rounds
         
-        a_r = (a_r + 1) // 2
-        b_r = (b_r + 1) // 2
+        a_round = (a_round + 1) // 2
+        b_round = (b_round + 1) // 2
         rounds += 1
         n //= 2
